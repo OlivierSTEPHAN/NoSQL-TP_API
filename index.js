@@ -1,9 +1,13 @@
-const express = require('express')
+import express from 'express'
+import {postgre, neo4j} from './db/index.js'
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get('/getAllNeo4j', (req, res) => {
+    res.send(neo4j.getAll())
+  })
+  app.get('/getAllPostgre', (req, res) => {
+    res.send(postgre.getAll())
   })
 
 app.listen(port, () => {
