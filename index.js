@@ -6,8 +6,8 @@ const port = 3000
 app.get('/getAllNeo4j', (req, res) => {
     res.send(neo4j.getAll())
   })
-  app.get('/getAllPostgre', (req, res) => {
-    res.send(postgre.getAll())
+  app.get('/test', (req, res) => {
+    res.send(postgre.articleByFriendOne())
   })
 
 app.listen(port, () => {

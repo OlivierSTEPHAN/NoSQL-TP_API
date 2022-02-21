@@ -15,11 +15,20 @@ client.connect()
 
 
 class Postgre{
-  getAll = async () => {
+  articleByFriendOne = async () => {
     try {
-      const res = await client.query(`SELECT $1 FROM $2`,['*','*'])
-      console.log(res.rows[0])
-      return res.rows[0]
+      const res = await client.query(`SELECT p.nomProduit, COUNT(p.idProduit) as Quantite
+      FROM Utilisateur amis 
+      JOIN Achat a ON amis.idUtilisateur = a.idUtilisateur
+      JOIN Produit p ON a.idProduit = p.idProduit
+      WHERE amis.idUtilisateur IN
+        (SELECT suivi.idUtilisateur FROM utilisateur u
+        JOIN suit suivi ON u.idUtilisateur = suivi.idUtilisateur
+        WHERE u.idUtilisateur = $1)
+      GROUP BY p.idProduit;
+      `,['1'])
+      console.log(res.rows)
+      return res.rows
     } catch (err) {
       console.log(err.stack)
       return err.stack
