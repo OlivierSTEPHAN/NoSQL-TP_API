@@ -2,17 +2,8 @@
 /////////  PG  ///////////
 //////////////////////////
 
-import pg from 'pg'
-const { Client } = pg
-const client = new Client({
-  user: 'olivierstephan',
-  host: 'localhost',
-  database: 'olivierstephan',
-  password: '',
-  port: '5432',
-})
+import client from './log.js'
 client.connect()
-
 
 class Postgre{
   articleByFriendOne = async () => {
@@ -43,9 +34,7 @@ class Postgre{
 //////////////////////////
 
 
-import nj from 'neo4j-driver'
-
-const driver = nj.driver("bolt://localhost:7687", nj.auth.basic("neo4j", "rq2n0qbg908"))
+import driver from './log.js'
 const session = driver.session()
 
 class Neo4j{
